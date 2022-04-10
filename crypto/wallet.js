@@ -15,23 +15,25 @@ const keccak256 = require('keccak256');
 
 const getWalletDetails = async() => {
     console.log("Async function started");
+
+    // --
     
     const wallet = Wallet.generate();
 
     const pubKey = wallet.getPublicKey();
-    const hashedPubKey = "0x" + keccak256(pubKey).toString('hex');
-    console.log(`Hashed public key: ${hashedPubKey}`);
+    // const hexPubKey = "0x" + pubKey.toString('hex');
+    const hashedPubKey = keccak256(pubKey).toString('hex');
+    // console.log(`Public key: ${hexPubKey}`);
+    console.log(`Hashed public key: 0x${hashedPubKey}`);
+
+    const ethAddress = hashedPubKey.substring(24);
+    console.log(`Eth address: 0x${ethAddress}`);
 
     const privKey = wallet.getPrivateKey();
-    const hashedPrivKey = "0x" + keccak256(privKey).toString('hex');
-    console.log(`Hashed private key: ${hashedPrivKey}`);
-
-    const hexPubKey = "0x" + pubKey.toString('hex');
-    const hexPrivbKey = "0x" + privKey.toString('hex');
-
-    console.log();
-    console.log(`Public key: ${hexPubKey}\nPrivate key: ${hexPrivbKey}`);
-
+    // const hexPrivKey = "0x" + privKey.toString('hex');
+    // const hashedPrivKey = keccak256(privKey).toString('hex');
+    // // console.log(`Private key: ${hexPrivKey}\n`);
+    // console.log(`Hashed private key: 0x${hashedPrivKey}\n`);
 }
 
 getWalletDetails();
