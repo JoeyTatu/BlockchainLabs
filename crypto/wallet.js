@@ -15,8 +15,6 @@ const keccak256 = require('keccak256');
 
 const getWalletDetails = async() => {
     console.log("Async function started");
-
-    // --
     
     const wallet = Wallet.generate();
 
@@ -36,6 +34,16 @@ const getWalletDetails = async() => {
     // console.log(`Hashed private key: 0x${hashedPrivKey}\n`);
 }
 
-getWalletDetails();
+// getWalletDetails();
+
+// // // Deterministic / HD wallet // // //
+
+const getHDWalletDetails = async() => {
+    console.log("Making a HD wallet");
+
+}
+
+getHDWalletDetails();
+
 
 console.log("This is the wallet creation file");
