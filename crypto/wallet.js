@@ -17,12 +17,19 @@ const getWalletDetails = async() => {
     console.log("Async function started");
     
     const wallet = Wallet.generate();
+
     const pubKey = wallet.getPublicKey();
+    const hashedPubKey = "0x" + keccak256(pubKey).toString('hex');
+    console.log(`Hashed public key: ${hashedPubKey}`);
+
     const privKey = wallet.getPrivateKey();
+    const hashedPrivKey = "0x" + keccak256(privKey).toString('hex');
+    console.log(`Hashed private key: ${hashedPrivKey}`);
 
     const hexPubKey = "0x" + pubKey.toString('hex');
     const hexPrivbKey = "0x" + privKey.toString('hex');
 
+    console.log();
     console.log(`Public key: ${hexPubKey}\nPrivate key: ${hexPrivbKey}`);
 
 }
