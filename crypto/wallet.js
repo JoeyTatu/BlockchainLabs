@@ -14,7 +14,17 @@ const Wallet = require("ethereumjs-wallet").default;
 const keccak256 = require('keccak256');
 
 const getWalletDetails = async() => {
-    console.log("Async function started")
+    console.log("Async function started");
+    
+    const wallet = Wallet.generate();
+    const pubKey = wallet.getPublicKey();
+    const privKey = wallet.getPrivateKey();
+
+    const hexPubKey = "0x" + pubKey.toString('hex');
+    const hexPrivbKey = "0x" + privKey.toString('hex');
+
+    console.log(`Public key: ${hexPubKey}\nPrivate key: ${hexPrivbKey}`);
+
 }
 
 getWalletDetails();
