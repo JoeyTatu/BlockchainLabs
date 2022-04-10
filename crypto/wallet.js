@@ -55,7 +55,7 @@ const getHDWalletDetails = async() => {
     const path = "m/44'/60'/0'/0/0";
     const path2 = "m/44'/60'/0'/0/1";
     const wallet = await hdWallet.derivePath(path).getWallet();
-    console.log(`Wallet: ${wallet}`);
+    // console.log(`Wallet: ${wallet}`);
     
     const pubKey = wallet.getPublicKey();
     const hashedPubKey = keccak256(pubKey).toString('hex');
