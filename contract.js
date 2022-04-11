@@ -344,7 +344,7 @@ const getTotalSupply = async() => {
 
 }
 
-const getBalanceOfOwner = async(address) => {
+const getBalance = async(address) => {
     let balance = await contract.methods.balanceOf(address).call();
     console.log(`Balance of address ${address}: ${balance}`);
     return balance;
@@ -381,12 +381,14 @@ const transferToken = async(fromAddress, toAddress, amount) => {
     console.log(`Tx Hash: ${txResponse.transactionHash}`)
 }
 
-const getAllContractInfo = async => {
-    // getName();                           // Read-only
-    // getSymbol();                         // Read-only
-    // getDecimals();                       // Read-only
-    // getTotalSupply();                    // Read-only
-    // getBalanceOfOwner(ownerAddress);     // Read-only
-    transferToken(ownerAddress, "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2", 10000000000)}
+// const getAllContractInfo = async => {
+//     // getName();                           // Read-only
+//     // getSymbol();                         // Read-only
+//     // getDecimals();                       // Read-only
+//     // getTotalSupply();                    // Read-only
+//     // getBalance(ownerAddress);     // Read-only
+//     transferToken(ownerAddress, "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2", 10000000000)}
 
-getAllContractInfo();
+// getAllContractInfo();
+
+module.exports = [getName, getBalance, getDecimals, getTotalSupply, transferToken];
