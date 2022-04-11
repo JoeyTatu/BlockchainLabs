@@ -23,7 +23,9 @@ require('dotenv').config();
 const infuraToken = process.env.INFURA_TOKEN;
 const contractAddress = process.env.CONTRACT_ADDRESS;
 const ownerAddress = process.env.OWNER_ADDRESS;
-// privateKey = process.env.PRIVATE_KEY;
+const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'hex');
+
+const toAddress = "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2";
 
 // console.log(`Infura token: ${infuraToken}\nContract address: ${contractAddress}\nOwner address: ${ownerAddress}`);
 
@@ -341,6 +343,7 @@ const getTotalSupply = async() => {
     let totalSupply = await contract.methods.totalSupply().call();
     console.log(`Total Supply: ${totalSupply}`);
     return totalSupply;
+
 }
 
 const getBalanceOfOwner = async(address) => {
@@ -350,21 +353,42 @@ const getBalanceOfOwner = async(address) => {
 }
 
 const transferToken = async(fromAddress, toAddress, amount) => {
-    // To create an Eth tx,
+    // to create an Eth transaction
     // we need a private key to sign the tx
-    // We also need a nonce (counter) to prevent tx replays
+    // we also need a nonce (counter) to prevent tx replays
 
     const nonce = await web3.eth.getTransactionCount(fromAddress);
-    console.log(`Nonce of ${nonce} for address ${fromAddress}`);
+    console.log(`Nonce of ${nonce} for address ${fromAddress}`)
+
+    const txObject = {
+        nonce: web3.utils.toHex(nonce),
+        gasLimit: web3.utils.toHex(500000),
+        gasPrice: web3.utils.toHex(web3.utils.toWei('100', 'gwei')),
+        to: contractAddress,
+        data: contract.methods.transfer(toAddress, amount).encodeABI()
+    }
+
+    const tx = new Tx(txObject, {chain: 'ropsten', hardfork: 'petersburg'});
+
+    tx.sign(privateKey);
+
+    const serializedTx = tx.serialize();
+    const raw = '0x' + serializedTx.toString('hex');
+    console.log("Waiting for tx response.");
+
+    let txResponse = await web3.eth.sendSignedTransaction(raw);
+
+    console.log(`Tx Block: ${txResponse.blockNumber}`);
+    console.log(`Tx Hash: ${txResponse.transactionHash}`)
+    console.log(`Tx from ${ownerAddress} to ${toAddress} complete.`); 
 }
 
 const getAllContractInfo = async => {
-    getName();                           // Read-only
-    getSymbol();                         // Read-only
-    getDecimals();                       // Read-only
-    getTotalSupply();                    // Read-only
-    getBalanceOfOwner(ownerAddress);     // Read-only
-    transferToken(ownerAddress, 2354234.23);
-}
+    // getName();                           // Read-only
+    // getSymbol();                         // Read-only
+    // getDecimals();                       // Read-only
+    // getTotalSupply();                    // Read-only
+    // getBalanceOfOwner(ownerAddress);     // Read-only
+    transferToken(ownerAddress, toAddress, 10)}
 
 getAllContractInfo();
