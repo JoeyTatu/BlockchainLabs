@@ -391,4 +391,4 @@ const transferToken = async(fromAddress, toAddress, amount) => {
 
 // getAllContractInfo();
 
-module.exports = [getName, getBalance, getDecimals, getTotalSupply, transferToken];
+module.exports = {getName, getSymbol, getDecimals, getTotalSupply, getBalance, transferToken};
