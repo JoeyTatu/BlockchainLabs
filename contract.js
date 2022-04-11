@@ -324,8 +324,6 @@ const getName = async() => {
     return name;
 }
 
-
-
 const getSymbol = async() => {
     let symbol = await contract.methods.symbol().call()
     console.log(`Symbol is ${symbol}`);
@@ -338,10 +336,24 @@ const getDecimals = async() => {
     return decimals;
 }
 
+const getTotalSupply = async() => {
+    let totalSupply = await contract.methods.totalSupply().call();
+    console.log(`Total Supply: ${totalSupply}`);
+    return totalSupply;
+}
+
+const getBalanceOfOwner = async(address) => {
+    let balance = await contract.methods.balanceOf(address).call();
+    console.log(`Balance of address ${address}: ${balance}`);
+    return balance;
+}
+
 const getAllContractInfo = async => {
     getName();
     getSymbol();
     getDecimals();
+    getTotalSupply();
+    getBalanceOfOwner(ownerAddress);
 }
 
 getAllContractInfo();
