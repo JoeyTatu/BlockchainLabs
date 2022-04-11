@@ -25,8 +25,6 @@ const contractAddress = process.env.CONTRACT_ADDRESS;
 const ownerAddress = process.env.OWNER_ADDRESS;
 const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'hex');
 
-const toAddress = "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2";
-
 // console.log(`Infura token: ${infuraToken}\nContract address: ${contractAddress}\nOwner address: ${ownerAddress}`);
 
 const rpcURL = "https://ropsten.infura.io/v3/" + infuraToken;
@@ -378,9 +376,9 @@ const transferToken = async(fromAddress, toAddress, amount) => {
 
     let txResponse = await web3.eth.sendSignedTransaction(raw);
 
+    console.log(`Tx complete.`); 
     console.log(`Tx Block: ${txResponse.blockNumber}`);
     console.log(`Tx Hash: ${txResponse.transactionHash}`)
-    console.log(`Tx from ${ownerAddress} to ${toAddress} complete.`); 
 }
 
 const getAllContractInfo = async => {
@@ -389,6 +387,6 @@ const getAllContractInfo = async => {
     // getDecimals();                       // Read-only
     // getTotalSupply();                    // Read-only
     // getBalanceOfOwner(ownerAddress);     // Read-only
-    transferToken(ownerAddress, toAddress, 10)}
+    transferToken(ownerAddress, "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2", 10000000000)}
 
 getAllContractInfo();
