@@ -45,7 +45,7 @@ const getWalletDetails = async() => {
 
 const getHDWalletDetails = async() => {
     console.log("Making a HD wallet");
-    const mnemonic = "";
+    const mnemonic = "seed phrase seed phrase seed phrase seed phrase seed phrase seed phrase seed phrase";
 
     // let seed = bip39.mnemonicToSeed(mnemonic); //returns [object Promise]
     let seed = await bip39.mnemonicToSeed(mnemonic); // "await" waits for correct seed before returning
