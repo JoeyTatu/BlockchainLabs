@@ -346,7 +346,7 @@ const getTotalSupply = async() => {
 
 const getBalance = async(address) => {
     let balance = await contract.methods.balanceOf(address).call();
-    console.log(`Balance of address ${address}: ${balance}`);
+    console.log(`Balance of ${address} address: ${balance}`);
     return balance;
 }
 
@@ -387,7 +387,8 @@ const transferToken = async(fromAddress, toAddress, amount) => {
 //     // getDecimals();                       // Read-only
 //     // getTotalSupply();                    // Read-only
 //     // getBalance(ownerAddress);     // Read-only
-//     transferToken(ownerAddress, "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2", 10000000000)}
+//     // transferToken(ownerAddress, "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2", 10000000000)
+// }
 
 // getAllContractInfo();
 
