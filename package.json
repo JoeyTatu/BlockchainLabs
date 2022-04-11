@@ -1,0 +1,24 @@
+{
+  "name": "blockchainlabs",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000B\u0000l\u0000o\u0000c\u0000k\u0000c\u0000h\u0000a\u0000i\u0000n\u0000L\u0000a\u0000b\u0000s\u0000\r\u0000 \u0000",
+  "main": "contract.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeyTatu/BlockchainLabs.git"
+  },
+  "author": "Joey.Tatu@student.ncirl.ie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoeyTatu/BlockchainLabs/issues"
+  },
+  "homepage": "https://github.com/JoeyTatu/BlockchainLabs#readme",
+  "dependencies": {
+    "bip39": "^3.0.4",
+    "ethereumjs-wallet": "^1.0.2",
+    "keccak256": "^1.0.6"
+  }
+}
