@@ -312,6 +312,9 @@ const abi = [
     }
 ]
 
+// Create an instance of a contract instance object that
+// - obeys the ABI
+// - is at the address of our deployed contract
 const contract = new web3.eth.Contract(abi, contractAddress);
 console.log(`Connected to contract via web3`);
 
@@ -321,4 +324,24 @@ const getName = async() => {
     return name;
 }
 
-getName();
+
+
+const getSymbol = async() => {
+    let symbol = await contract.methods.symbol().call()
+    console.log(`Symbol is ${symbol}`);
+    return symbol;
+}
+
+const getDecimals = async() => {
+    let decimals = await contract.methods.decimals().call();
+    console.log(`Decimals: ${decimals}`);
+    return decimals;
+}
+
+const getAllContractInfo = async => {
+    getName();
+    getSymbol();
+    getDecimals();
+}
+
+getAllContractInfo();
