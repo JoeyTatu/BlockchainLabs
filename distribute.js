@@ -1,43 +1,46 @@
-// Read in a file of account addresses
-// Count the number of addresses
-// Get the remaining supply between the accounts
-// Get 5% of remainng supply between the accounts
-// Loop through accounts running token transfer of 5%
-// Collect tea and medals
-
 let fs = require("fs");
 let contract = require("./contract.js");
-let BigNumber = require("big-number"); 
+let BigNumber = require("big-number");
+
 require('dotenv').config();
 
-
-const infuraToken = process.env.INFURA_TOKEN;
-const contractAddress = process.env.CONTRACT_ADDRESS;
+//infuraToken = process.env.INFURA_TOKEN;
+// const contractAddress = process.env.CONTRACT_ADDRESS;
 const ownerAddress = process.env.OWNER_ADDRESS;
-const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'hex');
+// privateKey = Buffer.from(process.env.SUPER_SECRET_PRIVATE_KEY, 'hex');
+
+
+// read in a file of accounts DONE
+// count the number of accounts DONE
+// get the remaining supply belonging to token owner DONE
+// get 5% of remaining supply DONE
+// loop through accounts running a token transfer of 5%
+// divide 5% of remaining supply between the accounts
+// collect tea and medals
 
 const doDistro = async() => {
-    // Distribution addresses
-    let disAddresses = fs.readFileSync("./accounts.txt", "utf8").split(",");
 
-    console.log(`There are ${disAddresses.length} distribution addresses. They are ${disAddresses}`);
+    let distributionAddresses = fs.readFileSync("./accounts.txt", "utf8").split(",");
+
+    console.log(`Number of distribution addresses: ${distributionAddresses.length}`);
 
     let symbol = await contract.getSymbol();
-    // console.log(`Token symbol: ${symbol}`)
+    console.log(`Token: ${symbol}`);
 
-    let reaminingSupply = await contract.getBalance(ownerAddress);
-    let ownerBal = new BigNumber(reaminingSupply);
-    let fivePercentOfBalance = ownerBal.div(20);
-    console.log(`Five % of ${ownerBal} is ${fivePercentOfBalance}`);
+    let remainingSupply = await contract.getBalance(ownerAddress);
+    let ownerBalance = new BigNumber(remainingSupply);
 
-    let noOfAddresses = disAddresses.length
-    let disAmount = fivePercentOfBalance.div(noOfAddresses);
+    let fivepercentOfBalance = ownerBalance.div(20);
+    console.log(`Five % of remaining supply is ${fivepercentOfBalance}`);
 
-    for (i=0; i < noOfAddresses; i++){
-        console.log(`Distributing to ${disAddresses[i]} with ${disAmount} ${symbol}. Waiting for reply.`);
-        let returnValue = trandferToken(ownerAddress, disAddresses[i], disAmount);
+    let numberOfAddresses = distributionAddresses.length;
+    let distributionAmount = fivepercentOfBalance.div(numberOfAddresses);
+
+    for (looper = 0; looper < numberOfAddresses; looper++) {
+        console.log(`Distributing ${distributionAmount} ${symbol} to ${distributionAddresses[looper]}`)
+        
+        let returnValue = await contract.transferToken(ownerAddress, distributionAddresses[looper], distributionAmount);
     }
 }
 
 doDistro();
-

@@ -344,9 +344,9 @@ const getTotalSupply = async() => {
 
 }
 
-const getBalance = async(address) => {
-    let balance = await contract.methods.balanceOf(address).call();
-    console.log(`Balance of ${address} address: ${balance}`);
+const getBalance = async(fromAddress) => {
+    let balance = await contract.methods.balanceOf(fromAddress).call();
+    console.log(`Balance of ${fromAddress} address: ${balance}`);
     return balance;
 }
 
@@ -356,7 +356,7 @@ const transferToken = async(fromAddress, toAddress, amount) => {
     // we also need a nonce (counter) to prevent tx replays
 
     const nonce = await web3.eth.getTransactionCount(fromAddress);
-    console.log(`Nonce of ${nonce} for address ${fromAddress}`)
+    console.log(`nonce of ${nonce} for address ${fromAddress}`)
 
     const txObject = {
         nonce: web3.utils.toHex(nonce),
@@ -372,13 +372,12 @@ const transferToken = async(fromAddress, toAddress, amount) => {
 
     const serializedTx = tx.serialize();
     const raw = '0x' + serializedTx.toString('hex');
-    console.log("Waiting for tx response.");
 
+    console.log("Sending tx");
     let txResponse = await web3.eth.sendSignedTransaction(raw);
 
-    console.log(`Tx complete.`); 
-    console.log(`Tx Block: ${txResponse.blockNumber}`);
-    console.log(`Tx Hash: ${txResponse.transactionHash}`)
+    console.log(`tx sent.\nBlock: ${txResponse.blockNumber}`);
+    console.log(`Hash: ${txResponse.transactionHash}`);   
 }
 
 // const getAllContractInfo = async => {
@@ -387,7 +386,7 @@ const transferToken = async(fromAddress, toAddress, amount) => {
 //     // getDecimals();                       // Read-only
 //     // getTotalSupply();                    // Read-only
 //     // getBalance(ownerAddress);     // Read-only
-//     // transferToken(ownerAddress, "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2", 10000000000)
+//     transferToken(ownerAddress, "0x56212F540b4a1057cEBD6d10EE66D56a527CfCA2", 1)
 // }
 
 // getAllContractInfo();
