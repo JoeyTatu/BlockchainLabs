@@ -16,6 +16,7 @@ console.log("This is the contract.js file");
 // creating a tx
 
 const Web3 = require("web3");
+const Tx = require("ethereumjs-tx").Transaction;
 
 require('dotenv').config();
 
@@ -348,12 +349,22 @@ const getBalanceOfOwner = async(address) => {
     return balance;
 }
 
+const transferToken = async(fromAddress, toAddress, amount) => {
+    // To create an Eth tx,
+    // we need a private key to sign the tx
+    // We also need a nonce (counter) to prevent tx replays
+
+    const nonce = await web3.eth.getTransactionCount(fromAddress);
+    console.log(`Nonce of ${nonce} for address ${fromAddress}`);
+}
+
 const getAllContractInfo = async => {
-    getName();
-    getSymbol();
-    getDecimals();
-    getTotalSupply();
-    getBalanceOfOwner(ownerAddress);
+    getName();                           // Read-only
+    getSymbol();                         // Read-only
+    getDecimals();                       // Read-only
+    getTotalSupply();                    // Read-only
+    getBalanceOfOwner(ownerAddress);     // Read-only
+    transferToken(ownerAddress, 2354234.23);
 }
 
 getAllContractInfo();
