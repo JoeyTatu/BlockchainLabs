@@ -15,6 +15,23 @@ console.log("This is the contract.js file");
 // All these are read-only methods and shouldn't involve
 // creating a tx
 
-const Web3 =  require("web3");
+const Web3 = require("web3");
+
+require('dotenv').config();
+
+const infuraToken = process.env.INFURA_TOKEN;
+const contractAddress = process.env.CONTRACT_ADDRESS;
+const ownerAddress = process.env.OWNER_ADDRESS;
+// privateKey = process.env.PRIVATE_KEY;
+
+// console.log(`Infura token: ${infuraToken}\nContract address: ${contractAddress}\nOwner address: ${ownerAddress}`);
+
+const rpcURL = "https://ropsten.infura.io/v3/" + infuraToken;
+
+console.log(`Infura URL: ${rpcURL}`);
+
+const web3 = new Web3(rpcURL);
+console.log(`Connected to web3`);
+console.log(`${web3.toString('hex')}`);
 
 
