@@ -177,10 +177,10 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * construction.
      */
     constructor() {
-        _name = "TOKEN MCTOKEN FACEv1.0";
-        _symbol = "TMTF";
+        _name = "Blockchain Lab 2 April";
+        _symbol = "BL24";
 
-        _mint(msg.sender, 1000000000000000000000000);
+        _mint(msg.sender, 1000000000000000000000000); //1000000.000000000000000000
     }
 
     /**
