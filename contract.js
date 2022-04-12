@@ -102,7 +102,7 @@ const transferToken = async(fromAddress, toAddress, amount) => {
     let txResponse = await web3.eth.sendSignedTransaction(raw);
 
     console.log(`Tx sent.\nBlock: ${txResponse.blockNumber}`);
-    console.log(`Hash: ${txResponse.transactionHash}`);   
+    console.log(`Hash: ${txResponse.transactionHash}\n`);   
 }
 
 // const getAllContractInfo = async => {

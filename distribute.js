@@ -21,7 +21,6 @@ const ownerAddress = process.env.OWNER_ADDRESS;
 const doDistro = async() => {
 
     let distributionAddresses = fs.readFileSync("./accounts.txt", "utf8").split(",");
-
     console.log(`Number of distribution addresses: ${distributionAddresses.length}`);
 
     let symbol = await contract.getSymbol();
@@ -37,7 +36,7 @@ const doDistro = async() => {
     let distributionAmount = fivepercentOfBalance.div(numberOfAddresses);
 
     for (looper = 0; looper < numberOfAddresses; looper++) {
-        console.log(`Distributing ${distributionAmount} ${symbol} to ${distributionAddresses[looper]}`)
+        console.log(`\nDistributing ${distributionAmount} ${symbol} to ${distributionAddresses[looper]}`)
         
         let returnValue = await contract.transferToken(ownerAddress, distributionAddresses[looper], distributionAmount);
     }
