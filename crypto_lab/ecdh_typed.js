@@ -30,19 +30,43 @@ console.log(`Public key: ${publicKeyBytes} bytes long`);
 console.log(`Private key: ${privateKeyBytes} bytes long`);
 
 // Make an Alice keypair
-var alicePublicKey =  sodium.sodium_malloc(publicKeyBytes);
 var alicePrivateKey = sodium.sodium_malloc(privateKeyBytes);
+var alicePublicKey =  sodium.sodium_malloc(publicKeyBytes);
 
 sodium.crypto_box_keypair(alicePublicKey, alicePrivateKey);
 console.log(`Alice's public key: 0x${alicePublicKey.toString('hex')}`);
 
 // Make a Bob keypair
-var bobPublicKey =  sodium.sodium_malloc(publicKeyBytes);
 var bobPrivateKey = sodium.sodium_malloc(privateKeyBytes);
+var bobPublicKey =  sodium.sodium_malloc(publicKeyBytes);
 
 sodium.crypto_box_keypair(bobPublicKey, bobPrivateKey);
 console.log(`Bob's public key: 0x${bobPublicKey.toString('hex')}`);
 
 // Scalar multipation
+const secretBytes = sodium.crypto_scalarmult_BYTES;
+console.log(`Secret: ${secretBytes.toString()} bytes long`);
 
-// Display the secret
+//// Get Alice's secret
+var aliceSecret = sodium.sodium_malloc(secretBytes);
+sodium.sodium_memzero(aliceSecret); // Wipe the memory location
+sodium.crypto_scalarmult(aliceSecret, alicePrivateKey, bobPublicKey);
+
+console.log(`Alice's secret: 0x${aliceSecret.toString('hex')}`);
+
+//// Get Bob's secret
+var bobSecret = sodium.sodium_malloc(secretBytes);
+sodium.sodium_memzero(bobSecret); // Wipe the memory location
+sodium.crypto_scalarmult(bobSecret, bobPrivateKey, alicePublicKey);
+
+console.log(`Bob's secret: 0x${bobSecret.toString('hex')}`);
+
+if (aliceSecret.toString('hex') == bobSecret.toString('hex')){
+
+    console.log(`Secrets match!`);
+
+} else {
+
+    console.log(`Secrets DO NOT match!`);
+
+}
