@@ -24,6 +24,7 @@
     "ethereumjs-wallet": "^1.0.2",
     "fs": "^0.0.1-security",
     "keccak256": "^1.0.6",
+    "sodium-native": "^3.3.0",
     "web3": "^1.7.3"
   }
 }

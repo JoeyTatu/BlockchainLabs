@@ -1,4 +1,6 @@
-// For ECDH
+// For ECDH -- https://en.wikipedia.org/wiki/Elliptic-curve_Diffie–Hellman
+//ECDH is a key aggreement
+
 // Alice has a private key and a public key (elliptic curve)
 // Bob has a private key and a public key
 
@@ -10,3 +12,12 @@
 
 // This is the KEY EXCHANGE
 
+// How does this work?
+// Alice's public key = G * PrivKey(A)
+// Bob's public key = G * PrivKey(B)
+
+// Alice's ECDH secret = PrivKey(A) * G * PrivKey(B)
+// Bob's ECDH secret = PrivKey(B) * G * PrivKey(A
+// PrivKey(A) * G * PrivKey(B) = PrivKey(B) * G * PrivKey(A)
+
+var sodium = require('sodium_native');
