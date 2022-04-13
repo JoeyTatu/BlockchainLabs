@@ -1,0 +1,14 @@
+services:
+  nci_erc20:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - labnetwork
+networks:
+  labnetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.60.0.0/24
+    
