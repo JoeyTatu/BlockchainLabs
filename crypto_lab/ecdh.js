@@ -13,11 +13,36 @@
 // This is the KEY EXCHANGE
 
 // How does this work?
-// Alice's public key = G * PrivKey(A)
-// Bob's public key = G * PrivKey(B)
+// Alice's public key = G * PrivateKey(A)
+// Bob's public key = G * PrivateKey(B)
 
-// Alice's ECDH secret = PrivKey(A) * G * PrivKey(B)
-// Bob's ECDH secret = PrivKey(B) * G * PrivKey(A
-// PrivKey(A) * G * PrivKey(B) = PrivKey(B) * G * PrivKey(A)
+// Alice's ECDH secret = PrivateKey(A) * G * PrivateKey(B)
+// Bob's ECDH secret = PrivateKey(B) * G * PrivateKey(A)
+// PrivKey(A) * G * PrivateKey(B) = PrivateKey(B) * G * PrivateKey(A)
 
-var sodium = require('sodium_native');
+var sodium = require('sodium-native');
+console.log(`ECDH demo\n`);
+
+const publicKeyBytes = sodium.crypto_box_PUBLICKEYBYTES
+const privateKeyBytes = sodium.crypto_box_SECRETKEYBYTES;
+
+console.log(`Public key: ${publicKeyBytes} bytes long`);
+console.log(`Private key: ${privateKeyBytes} bytes long`);
+
+// Make an Alice keypair
+var alicePublicKey =  sodium.sodium_malloc(publicKeyBytes);
+var alicePrivateKey = sodium.sodium_malloc(privateKeyBytes);
+
+sodium.crypto_box_keypair(alicePublicKey, alicePrivateKey);
+console.log(`Alice's public key: 0x${alicePublicKey.toString('hex')}`);
+
+// Make a Bob keypair
+var bobPublicKey =  sodium.sodium_malloc(publicKeyBytes);
+var bobPrivateKey = sodium.sodium_malloc(privateKeyBytes);
+
+sodium.crypto_box_keypair(bobPublicKey, bobPrivateKey);
+console.log(`Bob's public key: 0x${bobPublicKey.toString('hex')}`);
+
+// Scalar multipation
+
+// Display the secret
